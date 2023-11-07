@@ -473,8 +473,12 @@ impl App {
             self.mod_edit_password(e, password);
         }
         if let Some(description) = changes.description {
-            //TODO: desc
-            tracing::warn!(desc=%description,"TBD");
+            let validator = CreateEventValidation::check_desc(&description);
+
+            match validator {
+                None => e.data.description = description,
+                Some(error) => bail!("request validation failed: {:?}", error),
+            }
         }
 
         let result = e.clone();
