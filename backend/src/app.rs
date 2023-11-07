@@ -473,7 +473,7 @@ impl App {
             self.mod_edit_password(e, password);
         }
         if let Some(description) = changes.description {
-            let validator = CreateEventValidation::check_desc(&description);
+            let validator = shared::CreateEventValidation::check_desc(&description);
 
             match validator {
                 None => e.data.description = description,
